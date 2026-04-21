@@ -1,0 +1,434 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const ciudades = [
+  'Los Ángeles', 'Angol', 'Santa Bárbara', 'Huepil',
+  'Mulchén', 'Nacimiento', 'Laja', 'Concepción',
+];
+const bancos = [
+  'Banco de Chile', 'BancoEstado', 'Banco Santander', 'Banco BCI',
+  'Scotiabank', 'Banco Itaú', 'Banco Security', 'Banco Falabella',
+  'Banco Ripley',
+];
+const snackProblemas = [
+  { id: 'p-monedas', label: 'Ingresé monedas y quedaron atrapadas' },
+  { id: 'p-dinero-touch', label: 'Ingresé dinero y presioné la pantalla' },
+  { id: 'p-billete-rojo', label: 'Ingresé billete y el lector quedó rojo / se apagó' },
+  { id: 'p-billete-atrap', label: 'Ingresé billete y quedó atrapado' },
+  { id: 'p-colgado', label: 'Producto no cayó correctamente, quedó colgando' },
+  { id: 'p-espiral', label: 'Espiral no disponible' },
+  { id: 'p-mal-estado', label: 'Producto en mal estado' },
+  { id: 'p-otro-snack', label: 'Otro' },
+];
+const cafeProblemas = [
+  { id: 'c-monedas', label: 'Ingresé monedas y quedaron atrapadas' },
+  { id: 'c-dinero-touch', label: 'Ingresé dinero y presioné la pantalla' },
+  { id: 'c-billete-rojo', label: 'Ingresé billete y el lector quedó rojo' },
+  { id: 'c-billete-atrap', label: 'Ingresé billete y quedó atrapado' },
+  { id: 'c-no-corresponde', label: 'Café no salió como corresponde' },
+  { id: 'c-vaso-vacio', label: 'Salió vaso vacío' },
+  { id: 'c-no-cayo-vaso', label: 'No cayó el vaso' },
+  { id: 'c-otro', label: 'Otro' },
+];
+---
+<BaseLayout current="reclamo" title="Reportar problema — Yellow Box">
+  <section class="mx-auto max-w-4xl px-4 py-10 md:px-6 md:py-14">
+    <div class="mb-8">
+      <a href="/" class="text-sm font-semibold text-brand-muted hover:text-brand-ink">← Volver</a>
+      <h1 class="mt-3 text-4xl font-black text-brand-ink md:text-5xl">Reportar problema</h1>
+      <p class="mt-2 text-brand-muted">
+        Cuéntanos qué pasó con la máquina. Lo revisamos y te respondemos dentro de 72h hábiles.
+      </p>
+    </div>
+
+    <!-- Step indicator -->
+    <ol id="stepBar" class="mb-8 grid grid-cols-3 gap-2 md:gap-4">
+      <li class="flex items-center gap-2 rounded-lg border-2 border-brand-yellow bg-white px-3 py-2.5" data-step-item="1">
+        <span class="yb-step-dot is-active">1</span>
+        <div>
+          <p class="text-[11px] font-bold uppercase tracking-wider text-brand-muted">Paso 1</p>
+          <p class="text-sm font-bold text-brand-ink">Tus datos</p>
+        </div>
+      </li>
+      <li class="flex items-center gap-2 rounded-lg border border-brand-sandSoft bg-white/60 px-3 py-2.5" data-step-item="2">
+        <span class="yb-step-dot">2</span>
+        <div>
+          <p class="text-[11px] font-bold uppercase tracking-wider text-brand-muted">Paso 2</p>
+          <p class="text-sm font-bold text-brand-ink">El incidente</p>
+        </div>
+      </li>
+      <li class="flex items-center gap-2 rounded-lg border border-brand-sandSoft bg-white/60 px-3 py-2.5" data-step-item="3">
+        <span class="yb-step-dot">3</span>
+        <div>
+          <p class="text-[11px] font-bold uppercase tracking-wider text-brand-muted">Paso 3</p>
+          <p class="text-sm font-bold text-brand-ink">Devolución</p>
+        </div>
+      </li>
+    </ol>
+
+    <form id="reclamoForm" class="yb-card p-6 md:p-8" novalidate>
+      <!-- ========== STEP 1 ========== -->
+      <section data-step="1" class="space-y-5">
+        <header>
+          <h2 class="text-xl font-black text-brand-ink">Tus datos de contacto</h2>
+          <p class="text-sm text-brand-muted">Los usamos para responderte sobre este caso.</p>
+        </header>
+        <div class="grid gap-4 md:grid-cols-2">
+          <div>
+            <label for="s1-nombre" class="yb-label yb-label-required">Nombre completo</label>
+            <input id="s1-nombre" name="nombre" type="text" required class="yb-input" autocomplete="name" />
+          </div>
+          <div>
+            <label for="s1-rut" class="yb-label yb-label-required">RUT</label>
+            <input id="s1-rut" name="rut" type="text" required class="yb-input" placeholder="12.345.678-9" />
+          </div>
+        </div>
+        <div class="grid gap-4 md:grid-cols-2">
+          <div>
+            <label for="s1-email" class="yb-label yb-label-required">Correo electrónico</label>
+            <input id="s1-email" name="email" type="email" required class="yb-input" autocomplete="email" />
+          </div>
+          <div>
+            <label for="s1-telefono" class="yb-label yb-label-required">Teléfono</label>
+            <input id="s1-telefono" name="telefono" type="tel" required class="yb-input" autocomplete="tel" placeholder="+56 9 ..." />
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== STEP 2 ========== -->
+      <section data-step="2" class="hidden space-y-6">
+        <header>
+          <h2 class="text-xl font-black text-brand-ink">¿Qué pasó?</h2>
+          <p class="text-sm text-brand-muted">Cuantos más detalles nos des, más rápido lo resolvemos.</p>
+        </header>
+
+        <!-- Tipo máquina -->
+        <div>
+          <span class="yb-label yb-label-required">Tipo de máquina</span>
+          <div class="grid grid-cols-2 gap-3">
+            <label class="yb-chip justify-center py-3">
+              <input type="radio" name="tipo-maquina" value="snack" class="sr-only" required />
+              <span class="flex items-center gap-2">🍫 <span>Snack</span></span>
+            </label>
+            <label class="yb-chip justify-center py-3">
+              <input type="radio" name="tipo-maquina" value="cafe" class="sr-only" required />
+              <span class="flex items-center gap-2">☕ <span>Café</span></span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Problemas snack -->
+        <div data-problems="snack" class="hidden">
+          <span class="yb-label yb-label-required">Problema específico</span>
+          <div class="grid gap-2 md:grid-cols-2">
+            {snackProblemas.map((p) => (
+              <label class="yb-check-card" for={p.id}>
+                <input id={p.id} type="checkbox" name="snack-problema" value={p.label} />
+                <span class="text-sm text-brand-ink">{p.label}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <!-- Problemas café -->
+        <div data-problems="cafe" class="hidden">
+          <span class="yb-label yb-label-required">Problema específico</span>
+          <div class="grid gap-2 md:grid-cols-2">
+            {cafeProblemas.map((p) => (
+              <label class="yb-check-card" for={p.id}>
+                <input id={p.id} type="checkbox" name="cafe-problema" value={p.label} />
+                <span class="text-sm text-brand-ink">{p.label}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <!-- Cuándo y dónde -->
+        <div class="grid gap-4 md:grid-cols-2">
+          <div>
+            <label for="s2-fecha" class="yb-label yb-label-required">Fecha</label>
+            <input id="s2-fecha" name="fecha-compra" type="date" required class="yb-input" />
+          </div>
+          <div>
+            <label for="s2-hora" class="yb-label yb-label-required">Hora aproximada</label>
+            <input id="s2-hora" name="hora-compra" type="time" required class="yb-input" />
+          </div>
+        </div>
+        <div class="grid gap-4 md:grid-cols-2">
+          <div>
+            <label for="s2-ciudad" class="yb-label yb-label-required">Ciudad</label>
+            <select id="s2-ciudad" name="ciudad" required class="yb-input cursor-pointer">
+              <option value="">Selecciona una ciudad</option>
+              {ciudades.map((c) => <option value={c}>{c}</option>)}
+            </select>
+          </div>
+          <div>
+            <label for="s2-recinto" class="yb-label yb-label-required">Recinto / ubicación</label>
+            <input id="s2-recinto" name="recinto" type="text" required class="yb-input" placeholder="Ej: Mall Plaza, Universidad X..." />
+          </div>
+        </div>
+
+        <!-- Medio de pago -->
+        <div>
+          <span class="yb-label yb-label-required">¿Cómo pagaste?</span>
+          <div class="grid grid-cols-3 gap-2">
+            <label class="yb-chip justify-center">
+              <input type="radio" name="medio-pago" value="billete" class="sr-only" required />
+              <span>💵 Billete</span>
+            </label>
+            <label class="yb-chip justify-center">
+              <input type="radio" name="medio-pago" value="moneda" class="sr-only" />
+              <span>🪙 Moneda</span>
+            </label>
+            <label class="yb-chip justify-center">
+              <input type="radio" name="medio-pago" value="tarjeta" class="sr-only" />
+              <span>💳 Tarjeta</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Sub billete -->
+        <div data-pay="billete" class="hidden">
+          <span class="yb-label">Denominación del billete</span>
+          <div class="flex flex-wrap gap-2">
+            <label class="yb-chip"><input type="radio" name="tipo-billete" value="1000" class="sr-only" /><span>$1.000</span></label>
+            <label class="yb-chip"><input type="radio" name="tipo-billete" value="2000" class="sr-only" /><span>$2.000</span></label>
+            <label class="yb-chip"><input type="radio" name="tipo-billete" value="5000" class="sr-only" /><span>$5.000</span></label>
+            <label class="yb-chip"><input type="radio" name="tipo-billete" value="10000" class="sr-only" /><span>$10.000</span></label>
+          </div>
+        </div>
+
+        <!-- Sub tarjeta -->
+        <div data-pay="tarjeta" class="hidden grid gap-4 md:grid-cols-2">
+          <div>
+            <label for="s2-digitos" class="yb-label">Últimos 4 dígitos</label>
+            <input id="s2-digitos" name="digitos-tarjeta" maxlength="4" class="yb-input" inputmode="numeric" pattern="[0-9]{4}" />
+          </div>
+          <div>
+            <span class="yb-label">Tipo de tarjeta</span>
+            <div class="flex gap-2">
+              <label class="yb-chip flex-1 justify-center"><input type="radio" name="tipo-tarjeta" value="debito" class="sr-only" /><span>Débito</span></label>
+              <label class="yb-chip flex-1 justify-center"><input type="radio" name="tipo-tarjeta" value="credito" class="sr-only" /><span>Crédito</span></label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Descripción -->
+        <div>
+          <label for="s2-desc" class="yb-label yb-label-required">Cuéntanos brevemente qué pasó</label>
+          <textarea id="s2-desc" name="descripcion" rows="4" required class="yb-input resize-y" placeholder="Ej: Ingresé $2.000, seleccioné el producto y la máquina quedó en pantalla negra..."></textarea>
+        </div>
+
+        <!-- Imagen -->
+        <div>
+          <label for="s2-imagen" class="yb-label">Adjuntar foto (opcional)</label>
+          <input id="s2-imagen" name="imagen" type="file" accept="image/*"
+                 class="block w-full text-sm text-brand-muted
+                        file:mr-3 file:rounded-lg file:border-0 file:bg-brand-yellow file:px-4 file:py-2
+                        file:text-sm file:font-semibold file:text-brand-ink hover:file:bg-brand-yellowSoft" />
+          <p class="yb-help">Una imagen ayuda mucho al equipo técnico.</p>
+        </div>
+      </section>
+
+      <!-- ========== STEP 3 ========== -->
+      <section data-step="3" class="hidden space-y-5">
+        <header>
+          <h2 class="text-xl font-black text-brand-ink">Datos para devolución</h2>
+          <p class="text-sm text-brand-muted">
+            Solo si corresponde devolución de dinero. Si no, déjalo en blanco y envía.
+          </p>
+        </header>
+
+        <div class="grid gap-4 md:grid-cols-2">
+          <div>
+            <label for="s3-nombre-banco" class="yb-label">Titular de la cuenta</label>
+            <input id="s3-nombre-banco" name="nombre-banco" type="text" class="yb-input" />
+          </div>
+          <div>
+            <label for="s3-rut-banco" class="yb-label">RUT titular</label>
+            <input id="s3-rut-banco" name="rut-banco" type="text" class="yb-input" placeholder="12.345.678-9" />
+          </div>
+        </div>
+
+        <div class="grid gap-4 md:grid-cols-2">
+          <div>
+            <label for="s3-banco" class="yb-label">Banco</label>
+            <select id="s3-banco" name="banco" class="yb-input cursor-pointer">
+              <option value="">Selecciona banco</option>
+              {bancos.map((b) => <option value={b}>{b}</option>)}
+              <option value="otro">Otro banco</option>
+            </select>
+            <input id="s3-banco-otro" name="banco-otro" type="text" class="yb-input mt-2 hidden" placeholder="Nombre del banco" />
+          </div>
+          <div>
+            <label for="s3-numero-cuenta" class="yb-label">Número de cuenta</label>
+            <input id="s3-numero-cuenta" name="numero-cuenta" type="text" class="yb-input" />
+          </div>
+        </div>
+
+        <div>
+          <span class="yb-label">Tipo de cuenta</span>
+          <div class="flex flex-wrap gap-2">
+            <label class="yb-chip"><input type="radio" name="tipo-cuenta" value="vista" class="sr-only" /><span>Cuenta vista</span></label>
+            <label class="yb-chip"><input type="radio" name="tipo-cuenta" value="corriente" class="sr-only" /><span>Cuenta corriente</span></label>
+            <label class="yb-chip"><input type="radio" name="tipo-cuenta" value="rut" class="sr-only" /><span>Cuenta RUT</span></label>
+            <label class="yb-chip"><input type="radio" name="tipo-cuenta" value="chequera" class="sr-only" /><span>Chequera electrónica</span></label>
+          </div>
+        </div>
+
+        <div>
+          <label for="s3-correo-devolucion" class="yb-label">Correo electrónico (si difiere del de contacto)</label>
+          <input id="s3-correo-devolucion" name="correo-devolucion" type="email" class="yb-input" />
+        </div>
+
+        <div class="rounded-lg border border-brand-yellowSoft/50 bg-brand-yellow/10 p-4 text-sm text-brand-ink">
+          <p class="font-semibold">Antes de enviar:</p>
+          <ul class="mt-1 list-inside list-disc text-brand-muted">
+            <li>Revisa que los datos de contacto sean correctos.</li>
+            <li>Si adjuntaste foto, confirma que se vea claro el problema.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Status -->
+      <div id="formStatus" class="mt-6 hidden rounded-lg px-4 py-3 text-sm" role="status"></div>
+
+      <!-- Nav buttons -->
+      <div class="mt-8 flex items-center justify-between gap-3 border-t border-brand-sandSoft/40 pt-6">
+        <button type="button" id="btnPrev" class="yb-btn-ghost hidden px-5 py-2.5">← Anterior</button>
+        <div class="flex-1"></div>
+        <button type="button" id="btnNext" class="yb-btn-primary px-6 py-3">Siguiente →</button>
+        <button type="submit" id="btnSubmit" class="yb-btn-primary hidden px-6 py-3">Enviar reclamo</button>
+      </div>
+    </form>
+  </section>
+</BaseLayout>
+
+<script>
+  const form = document.getElementById('reclamoForm') as HTMLFormElement;
+  const sections = Array.from(form.querySelectorAll<HTMLElement>('[data-step]'));
+  const stepItems = document.querySelectorAll<HTMLElement>('[data-step-item]');
+  const btnPrev = document.getElementById('btnPrev') as HTMLButtonElement;
+  const btnNext = document.getElementById('btnNext') as HTMLButtonElement;
+  const btnSubmit = document.getElementById('btnSubmit') as HTMLButtonElement;
+  const status = document.getElementById('formStatus') as HTMLDivElement;
+
+  let current = 1;
+  const total = sections.length;
+
+  function render() {
+    sections.forEach((s) => s.classList.toggle('hidden', s.dataset.step !== String(current)));
+    stepItems.forEach((it) => {
+      const n = Number(it.dataset.stepItem);
+      const dot = it.querySelector<HTMLElement>('.yb-step-dot')!;
+      dot.classList.remove('is-active', 'is-done');
+      it.classList.remove('border-brand-yellow', 'border-brand-sandSoft');
+      it.classList.add('border');
+      if (n < current) {
+        dot.classList.add('is-done');
+        dot.textContent = '✓';
+        it.classList.add('border-brand-ink');
+      } else if (n === current) {
+        dot.classList.add('is-active');
+        dot.textContent = String(n);
+        it.classList.remove('border');
+        it.classList.add('border-2', 'border-brand-yellow');
+      } else {
+        dot.textContent = String(n);
+        it.classList.add('border-brand-sandSoft');
+      }
+    });
+    btnPrev.classList.toggle('hidden', current === 1);
+    btnNext.classList.toggle('hidden', current === total);
+    btnSubmit.classList.toggle('hidden', current !== total);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function showError(msg: string) {
+    status.className = 'mt-6 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700';
+    status.textContent = msg;
+    status.classList.remove('hidden');
+  }
+  function clearError() {
+    status.classList.add('hidden');
+    status.textContent = '';
+  }
+
+  function validateStep(n: number): boolean {
+    clearError();
+    const section = sections.find((s) => s.dataset.step === String(n))!;
+    const required = section.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>('[required]');
+    for (const el of required) {
+      if (!el.checkValidity()) {
+        el.focus();
+        showError('Completa los campos marcados con *.');
+        return false;
+      }
+    }
+    if (n === 2) {
+      const tipoMaq = (form.querySelector('input[name="tipo-maquina"]:checked') as HTMLInputElement | null)?.value;
+      if (!tipoMaq) { showError('Selecciona el tipo de máquina.'); return false; }
+      const probSel = form.querySelectorAll<HTMLInputElement>(
+        tipoMaq === 'snack' ? 'input[name="snack-problema"]:checked' : 'input[name="cafe-problema"]:checked'
+      );
+      if (probSel.length === 0) { showError('Selecciona al menos un problema.'); return false; }
+      const medio = (form.querySelector('input[name="medio-pago"]:checked') as HTMLInputElement | null)?.value;
+      if (!medio) { showError('Indica cómo pagaste.'); return false; }
+    }
+    return true;
+  }
+
+  btnNext.addEventListener('click', () => {
+    if (!validateStep(current)) return;
+    current = Math.min(current + 1, total);
+    render();
+  });
+  btnPrev.addEventListener('click', () => {
+    current = Math.max(current - 1, 1);
+    render();
+  });
+
+  // Tipo máquina → mostrar problemas + ocultar otros
+  form.querySelectorAll<HTMLInputElement>('input[name="tipo-maquina"]').forEach((r) =>
+    r.addEventListener('change', () => {
+      form.querySelector<HTMLElement>('[data-problems="snack"]')!.classList.toggle('hidden', r.value !== 'snack' || !r.checked);
+      form.querySelector<HTMLElement>('[data-problems="cafe"]')!.classList.toggle('hidden', r.value !== 'cafe' || !r.checked);
+    })
+  );
+
+  // Medio de pago → mostrar sub-secciones
+  form.querySelectorAll<HTMLInputElement>('input[name="medio-pago"]').forEach((r) =>
+    r.addEventListener('change', () => {
+      const billete = form.querySelector<HTMLElement>('[data-pay="billete"]')!;
+      const tarjeta = form.querySelector<HTMLElement>('[data-pay="tarjeta"]')!;
+      billete.classList.toggle('hidden', r.value !== 'billete' || !r.checked);
+      tarjeta.classList.toggle('hidden', r.value !== 'tarjeta' || !r.checked);
+    })
+  );
+
+  // Banco otro
+  const bancoSel = document.getElementById('s3-banco') as HTMLSelectElement;
+  const bancoOtro = document.getElementById('s3-banco-otro') as HTMLInputElement;
+  bancoSel?.addEventListener('change', () => {
+    bancoOtro.classList.toggle('hidden', bancoSel.value !== 'otro');
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!validateStep(current)) return;
+    btnSubmit.disabled = true;
+    const original = btnSubmit.innerHTML;
+    btnSubmit.textContent = 'Enviando...';
+    try {
+      // TODO: wire EmailJS — reuse SERVICE_ID/TEMPLATE_ID from legacy site.
+      await new Promise((r) => setTimeout(r, 1200));
+      window.location.href = '/gracias';
+    } catch {
+      showError('No pudimos enviar el reclamo. Intentá nuevamente.');
+      btnSubmit.disabled = false;
+      btnSubmit.innerHTML = original;
+    }
+  });
+
+  render();
+</script>

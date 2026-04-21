@@ -1,0 +1,40 @@
+---
+const { current = '' } = Astro.props as { current?: 'home' | 'contacto' | 'reclamo' | '' };
+const link = (name: string) =>
+  `text-sm font-semibold tracking-wide transition hover:text-brand-ink ${
+    current === name ? 'text-brand-ink' : 'text-brand-muted'
+  }`;
+---
+<header class="sticky top-0 z-40 w-full bg-brand-sand/95 backdrop-blur shadow-[0_1px_0_rgba(0,0,0,0.05)]">
+  <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 md:px-6">
+    <a href="/" class="flex items-center gap-2">
+      <img src="/img/logo.png" alt="Yellow Box" class="h-10 w-auto md:h-12" />
+    </a>
+    <div class="hidden items-center gap-8 md:flex">
+      <a href="/" class={link('home')}>Inicio</a>
+      <a href="/contacto" class={link('contacto')}>Contacto</a>
+      <a href="/reclamo" class={link('reclamo')}>Reportar problema</a>
+    </div>
+    <a href="/reclamo" class="yb-btn-primary hidden md:inline-flex">Reportar ahora</a>
+    <button
+      type="button"
+      id="mobile-toggle"
+      class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-white/60 text-brand-ink md:hidden"
+      aria-label="Menu"
+    >
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </nav>
+  <div id="mobile-menu" class="hidden border-t border-black/5 bg-brand-sand md:hidden">
+    <div class="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-3">
+      <a href="/" class="rounded-md px-3 py-2 text-brand-ink hover:bg-white/50">Inicio</a>
+      <a href="/contacto" class="rounded-md px-3 py-2 text-brand-ink hover:bg-white/50">Contacto</a>
+      <a href="/reclamo" class="rounded-md px-3 py-2 text-brand-ink hover:bg-white/50">Reportar problema</a>
+    </div>
+  </div>
+</header>
+<script>
+  const btn = document.getElementById('mobile-toggle');
+  const menu = document.getElementById('mobile-menu');
+  btn?.addEventListener('click', () => menu?.classList.toggle('hidden'));
+</script>

@@ -1,0 +1,123 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout current="contacto" title="Contacto — Yellow Box">
+  <section class="mx-auto max-w-4xl px-4 py-10 md:px-6 md:py-14">
+    <div class="mb-8">
+      <a href="/" class="text-sm font-semibold text-brand-muted hover:text-brand-ink">← Volver</a>
+      <h1 class="mt-3 text-4xl font-black text-brand-ink md:text-5xl">Contáctanos</h1>
+      <p class="mt-2 text-brand-muted">
+        Consultas, sugerencias, felicitaciones o pedidos de productos. Te respondemos dentro de
+        72h hábiles.
+      </p>
+    </div>
+
+    <div class="yb-card overflow-hidden">
+      <div class="flex items-center gap-3 border-b border-brand-sandSoft/50 bg-brand-bg px-6 py-4">
+        <span class="text-2xl">✉️</span>
+        <h2 class="text-lg font-bold text-brand-ink">Formulario de contacto</h2>
+      </div>
+
+      <form id="contactForm" class="space-y-5 p-6 md:p-8" novalidate>
+        <div class="grid gap-4 md:grid-cols-2">
+          <div>
+            <label for="nombre" class="yb-label yb-label-required">Nombre completo</label>
+            <input id="nombre" name="nombre" type="text" required class="yb-input" autocomplete="name" />
+          </div>
+          <div>
+            <label for="email" class="yb-label yb-label-required">Correo electrónico</label>
+            <input id="email" name="email" type="email" required class="yb-input" autocomplete="email" />
+          </div>
+        </div>
+
+        <div class="grid gap-4 md:grid-cols-2">
+          <div>
+            <label for="telefono" class="yb-label">Teléfono (opcional)</label>
+            <input id="telefono" name="telefono" type="tel" class="yb-input" autocomplete="tel" placeholder="+56 9 ..." />
+          </div>
+          <div>
+            <label for="asunto" class="yb-label yb-label-required">Motivo</label>
+            <select id="asunto" name="asunto" required class="yb-input cursor-pointer">
+              <option value="">Selecciona un motivo</option>
+              <option value="consulta">Consulta general</option>
+              <option value="producto">Pedido / sugerencia de producto</option>
+              <option value="sugerencia">Sugerencia de mejora</option>
+              <option value="felicitacion">Felicitación</option>
+              <option value="otro">Otro</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label for="message" class="yb-label yb-label-required">Mensaje</label>
+          <textarea id="message" name="message" rows="6" required class="yb-input resize-y" placeholder="Cuéntanos en qué podemos ayudarte..."></textarea>
+          <p class="yb-help">Mínimo 20 caracteres.</p>
+        </div>
+
+        <div class="flex items-start gap-2">
+          <input id="acepto" name="acepto" type="checkbox" required class="mt-1 h-4 w-4 accent-brand-yellowSoft" />
+          <label for="acepto" class="text-sm text-brand-muted">
+            Acepto el tratamiento de mis datos para gestionar esta consulta.
+          </label>
+        </div>
+
+        <div class="flex flex-wrap gap-3 pt-2">
+          <button type="submit" class="yb-btn-primary px-6 py-3 text-base">Enviar mensaje</button>
+          <a href="/reclamo" class="yb-btn-ghost px-6 py-3 text-base">¿Es un reclamo de máquina?</a>
+        </div>
+
+        <div id="formStatus" class="hidden rounded-lg px-4 py-3 text-sm" role="status"></div>
+      </form>
+    </div>
+
+    <div class="mt-10 grid gap-4 md:grid-cols-3">
+      <div class="yb-card p-5">
+        <div class="text-xl">✉️</div>
+        <p class="mt-2 text-sm font-semibold">Email</p>
+        <a href="mailto:soporte@smkvending.cl" class="text-sm text-brand-muted hover:text-brand-ink">soporte@smkvending.cl</a>
+      </div>
+      <div class="yb-card p-5">
+        <div class="text-xl">📍</div>
+        <p class="mt-2 text-sm font-semibold">Cobertura</p>
+        <p class="text-sm text-brand-muted">Región del Bío-Bío, Chile</p>
+      </div>
+      <div class="yb-card p-5">
+        <div class="text-xl">⏱</div>
+        <p class="mt-2 text-sm font-semibold">Respuesta</p>
+        <p class="text-sm text-brand-muted">Dentro de 72 horas hábiles</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const form = document.getElementById('contactForm') as HTMLFormElement | null;
+  const status = document.getElementById('formStatus') as HTMLDivElement | null;
+  if (form && status) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const msg = (form.elements.namedItem('message') as HTMLTextAreaElement).value.trim();
+      if (msg.length < 20) {
+        status.className = 'rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700';
+        status.textContent = 'El mensaje debe tener al menos 20 caracteres.';
+        status.classList.remove('hidden');
+        return;
+      }
+      const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+      btn.disabled = true;
+      const original = btn.innerHTML;
+      btn.textContent = 'Enviando...';
+      try {
+        // TODO: wire EmailJS here — keep same SERVICE_ID/TEMPLATE_ID as legacy site
+        await new Promise((r) => setTimeout(r, 1000));
+        window.location.href = '/gracias';
+      } catch {
+        status.className = 'rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700';
+        status.textContent = 'No pudimos enviar el mensaje. Intenta nuevamente.';
+        status.classList.remove('hidden');
+        btn.disabled = false;
+        btn.innerHTML = original;
+      }
+    });
+  }
+</script>

@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-brand-bg text-brand-ink font-sans antialiased;
+  }
+  :focus-visible {
+    outline: none;
+    @apply shadow-focus rounded-md;
+  }
+}
+
+@layer components {
+  .yb-input {
+    @apply w-full rounded-lg border border-brand-sandSoft bg-white px-3.5 py-2.5 text-[15px] text-brand-ink placeholder:text-brand-muted/60
+           transition focus:border-brand-yellowSoft focus:ring-4 focus:ring-brand-yellow/30 focus:outline-none disabled:bg-brand-bg;
+  }
+  .yb-label {
+    @apply mb-1.5 block text-sm font-medium text-brand-ink;
+  }
+  .yb-label-required::after {
+    content: ' *';
+    @apply text-red-500;
+  }
+  .yb-help {
+    @apply mt-1 text-xs text-brand-muted;
+  }
+  .yb-error {
+    @apply mt-1 text-xs font-medium text-red-600;
+  }
+  .yb-btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .yb-btn-primary {
+    @apply yb-btn bg-brand-yellow text-brand-ink hover:bg-brand-yellowSoft hover:shadow-md active:scale-[.98];
+  }
+  .yb-btn-ghost {
+    @apply yb-btn border border-brand-sandSoft bg-white text-brand-ink hover:bg-brand-bg;
+  }
+  .yb-btn-dark {
+    @apply yb-btn bg-brand-ink text-white hover:bg-black/80;
+  }
+  .yb-card {
+    @apply rounded-xl2 bg-white shadow-card;
+  }
+  .yb-chip {
+    @apply inline-flex cursor-pointer select-none items-center gap-2 rounded-full border border-brand-sandSoft bg-white px-4 py-2 text-sm font-medium text-brand-ink transition hover:border-brand-yellowSoft;
+  }
+  .yb-chip input:checked + span,
+  .yb-chip.is-active {
+    @apply text-brand-ink;
+  }
+  .yb-chip:has(input:checked) {
+    @apply border-brand-yellow bg-brand-yellow/20 ring-2 ring-brand-yellow/40;
+  }
+  .yb-step-dot {
+    @apply flex h-9 w-9 items-center justify-center rounded-full border-2 border-brand-sandSoft bg-white text-sm font-bold text-brand-muted;
+  }
+  .yb-step-dot.is-active {
+    @apply border-brand-yellow bg-brand-yellow text-brand-ink;
+  }
+  .yb-step-dot.is-done {
+    @apply border-brand-ink bg-brand-ink text-white;
+  }
+  .yb-check-card {
+    @apply flex cursor-pointer items-start gap-3 rounded-lg border border-brand-sandSoft bg-white p-3 transition hover:border-brand-yellowSoft;
+  }
+  .yb-check-card:has(input:checked) {
+    @apply border-brand-yellow bg-brand-yellow/10 ring-2 ring-brand-yellow/30;
+  }
+  .yb-check-card input {
+    @apply mt-1 h-4 w-4 accent-brand-yellowSoft;
+  }
+}

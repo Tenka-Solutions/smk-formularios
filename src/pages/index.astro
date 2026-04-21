@@ -1,0 +1,104 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout current="home" title="Yellow Box — Contacto y soporte">
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-brand-sand/40 via-brand-bg to-brand-bg"></div>
+    <div class="absolute -right-20 top-0 h-80 w-80 rounded-full bg-brand-yellow/30 blur-3xl"></div>
+    <div class="absolute -left-10 bottom-0 h-64 w-64 rounded-full bg-brand-sand/40 blur-3xl"></div>
+    <div class="relative mx-auto grid max-w-6xl gap-10 px-4 py-16 md:grid-cols-2 md:px-6 md:py-24">
+      <div class="flex flex-col justify-center">
+        <span class="mb-3 inline-flex w-fit items-center gap-2 rounded-full bg-brand-yellow/90 px-3 py-1 text-xs font-bold uppercase tracking-wider text-brand-ink">
+          Atención al cliente
+        </span>
+        <h1 class="text-4xl font-black leading-[1.05] tracking-tight text-brand-ink md:text-6xl">
+          ¿Problema con una<br />
+          <span class="bg-brand-yellow px-2">máquina Yellow Box</span>?
+        </h1>
+        <p class="mt-5 max-w-lg text-lg text-brand-muted">
+          Reporta el problema en menos de 2 minutos. También puedes escribirnos para consultas,
+          sugerencias o solicitar un producto.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/reclamo" class="yb-btn-primary px-6 py-3 text-base">
+            🛠 Reportar problema con máquina
+          </a>
+          <a href="/contacto" class="yb-btn-ghost px-6 py-3 text-base">
+            ✉ Contactar / consultar
+          </a>
+        </div>
+        <div class="mt-8 flex items-center gap-4 text-xs text-brand-muted">
+          <span class="flex items-center gap-1">⏱ Respuesta dentro de 72h hábiles</span>
+          <span class="flex items-center gap-1">🔒 Datos cifrados</span>
+        </div>
+      </div>
+      <div class="relative hidden md:block">
+        <div class="absolute inset-0 rounded-3xl bg-brand-ink/5"></div>
+        <div class="relative grid grid-cols-2 gap-4 p-2">
+          <div class="yb-card p-5">
+            <div class="mb-2 text-3xl">☕</div>
+            <h3 class="text-sm font-bold">Café atrapado</h3>
+            <p class="mt-1 text-xs text-brand-muted">¿No cayó el vaso? ¿Salió vacío? Te devolvemos.</p>
+          </div>
+          <div class="yb-card p-5 translate-y-6">
+            <div class="mb-2 text-3xl">🍫</div>
+            <h3 class="text-sm font-bold">Snack colgado</h3>
+            <p class="mt-1 text-xs text-brand-muted">El espiral no giró lo suficiente. Lo resolvemos.</p>
+          </div>
+          <div class="yb-card p-5">
+            <div class="mb-2 text-3xl">💳</div>
+            <h3 class="text-sm font-bold">Dinero atrapado</h3>
+            <p class="mt-1 text-xs text-brand-muted">Billete, moneda o tarjeta — te devolvemos el monto.</p>
+          </div>
+          <div class="yb-card p-5 translate-y-6">
+            <div class="mb-2 text-3xl">📦</div>
+            <h3 class="text-sm font-bold">Pedir productos</h3>
+            <p class="mt-1 text-xs text-brand-muted">Sugiere qué te gustaría encontrar en la máquina.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 py-12 md:px-6">
+    <h2 class="text-center text-3xl font-black text-brand-ink">¿Cómo funciona?</h2>
+    <p class="mx-auto mt-2 max-w-xl text-center text-brand-muted">
+      Tres pasos simples para resolver tu situación.
+    </p>
+    <div class="mt-10 grid gap-6 md:grid-cols-3">
+      <div class="yb-card p-6">
+        <div class="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-brand-yellow text-lg font-black text-brand-ink">1</div>
+        <h3 class="text-lg font-bold">Completa el formulario</h3>
+        <p class="mt-2 text-sm text-brand-muted">Cuéntanos qué pasó con la máquina: tipo, lugar, momento y detalle.</p>
+      </div>
+      <div class="yb-card p-6">
+        <div class="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-brand-yellow text-lg font-black text-brand-ink">2</div>
+        <h3 class="text-lg font-bold">Revisamos el caso</h3>
+        <p class="mt-2 text-sm text-brand-muted">Un ejecutivo analiza el reporte en un máximo de 72 horas hábiles.</p>
+      </div>
+      <div class="yb-card p-6">
+        <div class="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-brand-yellow text-lg font-black text-brand-ink">3</div>
+        <h3 class="text-lg font-bold">Respuesta y solución</h3>
+        <p class="mt-2 text-sm text-brand-muted">Te escribimos con la solución. Si corresponde devolución, la coordinamos.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto my-12 max-w-6xl px-4 md:px-6">
+    <div class="relative overflow-hidden rounded-xl2 bg-brand-ink px-6 py-10 text-white md:px-12 md:py-14">
+      <div class="absolute -right-10 -top-10 h-48 w-48 rounded-full bg-brand-yellow/30 blur-2xl"></div>
+      <div class="relative flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+        <div>
+          <h3 class="text-2xl font-black md:text-3xl">Estamos un paso más cerca de ti.</h3>
+          <p class="mt-2 max-w-xl text-white/80">
+            Si tuviste algún inconveniente con una de nuestras máquinas, no dudes en contactarnos.
+            Resolvemos rápido.
+          </p>
+        </div>
+        <a href="/reclamo" class="yb-btn-primary whitespace-nowrap px-6 py-3 text-base">
+          Reportar problema →
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
