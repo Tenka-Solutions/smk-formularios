@@ -12,7 +12,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           Atención al cliente
         </span>
         <h1 class="text-4xl font-black leading-[1.05] tracking-tight text-brand-ink md:text-6xl">
-          ¿Problema con una<br />
+          <span class="inline-block pb-2">¿Problema con una</span><br />
           <span class="bg-brand-yellow px-2">máquina Yellow Box</span>?
         </h1>
         <p class="mt-5 max-w-lg text-lg text-brand-muted">
@@ -34,27 +34,37 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
       <div class="relative hidden md:block">
         <div class="absolute inset-0 rounded-3xl bg-brand-ink/5"></div>
-        <div class="relative grid grid-cols-2 gap-4 p-2">
-          <div class="yb-card p-5">
-            <div class="mb-2 text-3xl">☕</div>
-            <h3 class="text-sm font-bold">Café atrapado</h3>
-            <p class="mt-1 text-xs text-brand-muted">¿No cayó el vaso? ¿Salió vacío? Te devolvemos.</p>
+        <div class="relative flex flex-col gap-4 p-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="yb-card p-5">
+              <div class="mb-2 text-3xl">☕</div>
+              <h3 class="text-sm font-bold">Café atrapado</h3>
+              <p class="mt-1 text-xs text-brand-muted">¿No cayó el vaso? ¿Salió vacío? Te devolvemos.</p>
+            </div>
+            <div class="yb-card p-5">
+              <div class="mb-2 text-3xl">🍫</div>
+              <h3 class="text-sm font-bold">Snack colgado</h3>
+              <p class="mt-1 text-xs text-brand-muted">El espiral no giró lo suficiente. Lo resolvemos.</p>
+            </div>
+            <div class="yb-card p-5">
+              <div class="mb-2 text-3xl">💳</div>
+              <h3 class="text-sm font-bold">Dinero atrapado</h3>
+              <p class="mt-1 text-xs text-brand-muted">Billete, moneda o tarjeta — te devolvemos el monto.</p>
+            </div>
+            <div class="yb-card p-5">
+              <div class="mb-2 text-3xl">📦</div>
+              <h3 class="text-sm font-bold">Pedir productos</h3>
+              <p class="mt-1 text-xs text-brand-muted">Sugiere qué te gustaría encontrar en la máquina.</p>
+            </div>
           </div>
-          <div class="yb-card p-5 translate-y-6">
-            <div class="mb-2 text-3xl">🍫</div>
-            <h3 class="text-sm font-bold">Snack colgado</h3>
-            <p class="mt-1 text-xs text-brand-muted">El espiral no giró lo suficiente. Lo resolvemos.</p>
-          </div>
-          <div class="yb-card p-5">
-            <div class="mb-2 text-3xl">💳</div>
-            <h3 class="text-sm font-bold">Dinero atrapado</h3>
-            <p class="mt-1 text-xs text-brand-muted">Billete, moneda o tarjeta — te devolvemos el monto.</p>
-          </div>
-          <div class="yb-card p-5 translate-y-6">
-            <div class="mb-2 text-3xl">📦</div>
-            <h3 class="text-sm font-bold">Pedir productos</h3>
-            <p class="mt-1 text-xs text-brand-muted">Sugiere qué te gustaría encontrar en la máquina.</p>
-          </div>
+          <a
+            href="https://hubcafe.cl"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="yb-btn-primary mt-1 inline-flex items-center justify-center gap-2 px-6 py-3 text-base"
+          >
+            🛒 Adquiere nuestros productos acá →
+          </a>
         </div>
       </div>
     </div>
